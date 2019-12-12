@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author AlexisO
  */
-@WebFilter(filterName = "NewFilter", urlPatterns = {"/*"})
+//@WebFilter("*.xhtml")
 public class NewFilter implements Filter {
     
     private static final boolean debug = true;
@@ -102,7 +102,7 @@ public class NewFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        HttpServletRequest serverRequest= (HttpServletRequest)request;
+  /*      HttpServletRequest serverRequest= (HttpServletRequest)request;
         HttpServletResponse serveResponse= (HttpServletResponse)response;
         boolean logeo= false;
         boolean redireccionar= true;
@@ -120,7 +120,7 @@ public class NewFilter implements Filter {
             serveResponse.sendRedirect(serverRequest.getContextPath()+"/sga/PaginaLogin.xhtml");
         }else{
             chain.doFilter(request, response);
-        }
+        }*/
         }
         
         

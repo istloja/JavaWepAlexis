@@ -39,16 +39,19 @@ public class BeanLogin implements Serializable  {
     }
 
    
-    public void comprobar() {
+    public String comprobar() {
+        String url= null;
         FacesMessage mensaje;
         if (usuario.equals("alexis") && contrasenia.equals("123456")) {
             System.out.println("Datos Correctos");
             mensaje= new FacesMessage(FacesMessage.SEVERITY_INFO,"Datos correctos"," ");
+            url= "/sga/Pagina1.xhtml?faces-redirect=true";
         } else {
             System.out.println("Datos Incorrectos");
             mensaje= new FacesMessage(FacesMessage.SEVERITY_INFO,"Datos Incorrectos","");
         }
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        return url;
     }
 
     }
