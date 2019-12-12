@@ -19,21 +19,19 @@
 
             <ui:define name="bottom">
                 <h1> INICIO DE SESION </h1>
-                <p:panelGrid columns="2">
-                    <h:form>
-                    <p:outputLabel value="Usuario"></p:outputLabel>
+                <h:form>  
+                    <p:inputText id="usuario" value="#{beanLogin.usuario}" required="true">
 
-                    <p:inputText id="txtUsuario" value="#{beanLogin.usuario}" required="true"></p:inputText>
-
-                    <p:outputLabel value="Contraseña"></p:outputLabel>
-                    <p:password id="txtContrasenia" value="#{beanLogin.contrasenia}" required="true"></p:password>
-
-                    <br></br>
-                    <br></br>
-                    <p:commandButton id="btnIngresar" value="Ingresar" action="#{beanLogin.comprobar()}"></p:commandButton>
-                    </h:form>
-                </p:panelGrid>
-                
+                    </p:inputText>
+                    
+                    <p:password id="contrasena" value="#{beanLogin.contrasena}" required="true"></p:password> 
+                                          
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
+                    
+                    <p:commandButton id="btnAceptar" value="Aceptar" action="#{beanLogin.comprobar()}"/>
+                </h:form>
             </ui:define>
 
         </ui:composition>

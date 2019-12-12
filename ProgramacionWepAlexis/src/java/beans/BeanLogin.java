@@ -5,11 +5,15 @@
  */
 package beans;
 
+import Modelos.Persona;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -17,10 +21,11 @@ import javax.faces.context.FacesContext;
  */
 @Named(value = "beanLogin")
 @RequestScoped
-public class BeanLogin implements Serializable  {
+public class BeanLogin implements Serializable {
 
-    
-    private String usuario, contrasenia;
+    private String usuario, contrasena;
+
+    private List<Persona> lista;
 
     public String getUsuario() {
         return usuario;
@@ -30,33 +35,57 @@ public class BeanLogin implements Serializable  {
         this.usuario = usuario;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
-   
+
+
+
+    public BeanLogin() {
+        lista = new ArrayList<>();
+        lista.add(new Persona("alexis", "Ortega", "1", "12345"));
+        lista.add(new Persona("joan", "peña", "2", "12345"));
+        lista.add(new Persona("cristian", "poma", "3", "12345"));
+        lista.add(new Persona("steven", "chimbo", "1", "12345"));
+        lista.add(new Persona("cesar", "cabrera", "2", "12345"));
+        lista.add(new Persona("dario", "gonsalez", "3", "12345"));
+        lista.add(new Persona("guillermo", "aucapiña", "1", "12345"));
+        lista.add(new Persona("yeferson", "torres", "1", "12345"));
+
+    }
+
     public String comprobar() {
-        String url= null;
-        FacesMessage mensaje;
-        if (usuario.equals("alexis") && contrasenia.equals("123456")) {
-            System.out.println("Datos Correctos");
-            mensaje= new FacesMessage(FacesMessage.SEVERITY_INFO,"Datos correctos"," ");
-            url= "/sga/Pagina1.xhtml?faces-redirect=true";
-        } else {
-            System.out.println("Datos Incorrectos");
-            mensaje= new FacesMessage(FacesMessage.SEVERITY_INFO,"Datos Incorrectos","");
+        String url = null;
+        FacesMessage message;
+
+        for (Persona pers : lista) {
+
+        HttpSession sesion=(HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        sesion.setAttribute("nombre", pers);
+            if (usuario.equals(pers.getNombre()) && contrasena.equals(pers.getContrasenia())) {
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "");
+                System.out.println("1er if");
+                if (pers.getUsuario().equals("1")) {
+                    url = "PaginaAdministrador.xhtml?faces-redirect=true";
+                } else {
+                    if (pers.getUsuario().equals("2")) {
+                        url = "PaginaEstudiante.xhtml?faces-redirect=true";
+                    } else {
+                        if (pers.getUsuario().equals("3")) {
+                            url = "PaginaOrganizador.xhtml?faces-redirect=true";
+                        }
+                    }
+                }
+            } else {
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Datos Incorrectos", "");
+            }
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        FacesContext.getCurrentInstance().addMessage(null, mensaje);
         return url;
     }
-
-    }
-
-    
-    
-    
-
+}

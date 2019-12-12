@@ -5,6 +5,7 @@
  */
 package Utilidades;
 
+import Modelos.Persona;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -102,11 +104,42 @@ public class NewFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-  /*      HttpServletRequest serverRequest= (HttpServletRequest)request;
+        
+        HttpServletRequest serverRequest= (HttpServletRequest)request;
         HttpServletResponse serveResponse= (HttpServletResponse)response;
         boolean logeo= false;
         boolean redireccionar= true;
         String paginas[]={"/sga/Plantilla1.xhtml","/sga/PaginaLogin.xhtml","/sga/welcomePrinfaces.xhtml"};
+        HttpSession sesion = serverRequest.getSession(true);
+        Persona per= (Persona) sesion.getAttribute("usuario");
+        chain.doFilter(request, response);
+        
+        if(per!=null){
+            logeo= false;
+        }else{
+            for (String item : paginas) {
+                if(serverRequest.getRequestURI().contains(item)){
+                redireccionar= false;
+                }
+            }
+        }
+        
+        
+        if(redireccionar){
+            serveResponse.sendRedirect(serverRequest.getContextPath()+"/sga/PaginaLogin.xhtml");
+        }else{
+            chain.doFilter(request, response);
+        }
+         
+         
+         
+         //login basico
+        /*      HttpServletRequest serverRequest= (HttpServletRequest)request;
+        HttpServletResponse serveResponse= (HttpServletResponse)response;
+        boolean logeo= false;
+        boolean redireccionar= true;
+        String paginas[]={"/sga/Plantilla1.xhtml","/sga/PaginaLogin.xhtml","/sga/welcomePrinfaces.xhtml"};
+        
         if(logeo){
             chain.doFilter(request, response);
         }else{
