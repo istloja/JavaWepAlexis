@@ -66,10 +66,9 @@ public class BeanLogin implements Serializable {
         for (Persona pers : lista) {
 
         HttpSession sesion=(HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        sesion.setAttribute("nombre", pers);
+        sesion.setAttribute("usuario", pers);
             if (usuario.equals(pers.getNombre()) && contrasena.equals(pers.getContrasenia())) {
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "");
-                System.out.println("1er if");
                 if (pers.getUsuario().equals("1")) {
                     url = "PaginaAdministrador.xhtml?faces-redirect=true";
                 } else {

@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author AlexisO
  */
-//@WebFilter("*.xhtml")
+@WebFilter("*.xhtml")
 public class NewFilter implements Filter {
     
     private static final boolean debug = true;
@@ -109,14 +109,16 @@ public class NewFilter implements Filter {
         HttpServletResponse serveResponse= (HttpServletResponse)response;
         boolean logeo= false;
         boolean redireccionar= true;
-        String paginas[]={"/sga/Plantilla1.xhtml","/sga/PaginaLogin.xhtml","/sga/welcomePrinfaces.xhtml"};
+        String paginas[]={"/sga/PaginaLogin.xhtml"};
         HttpSession sesion = serverRequest.getSession(true);
         Persona per= (Persona) sesion.getAttribute("usuario");
-        chain.doFilter(request, response);
+       // chain.doFilter(request, response);
         
         if(per!=null){
-            logeo= false;
+            redireccionar= false;
+            System.out.println("si hay usuario");
         }else{
+            System.out.println("No hay usuario");
             for (String item : paginas) {
                 if(serverRequest.getRequestURI().contains(item)){
                 redireccionar= false;
@@ -126,7 +128,7 @@ public class NewFilter implements Filter {
         
         
         if(redireccionar){
-            serveResponse.sendRedirect(serverRequest.getContextPath()+"/sga/PaginaLogin.xhtml");
+            serveResponse.sendRedirect(serverRequest.getContextPath()+"/sga/PaginaAdministrador.xhtml");
         }else{
             chain.doFilter(request, response);
         }
