@@ -5,7 +5,7 @@
  */
 package Utilidades;
 
-import Modelos.Persona;
+import Utilidades.Persona;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -108,7 +108,7 @@ public class Filtro1 implements Filter {
         HttpServletRequest serverRequest= (HttpServletRequest)request;
         HttpServletResponse serveResponse= (HttpServletResponse)response;
         boolean logeo= false;
-        boolean redireccionar= true;
+        boolean redireccionar= false;
         String paginas[]={"/sga/PaginaLogin.xhtml"};
         HttpSession sesion = serverRequest.getSession(true);
         Persona per= (Persona) sesion.getAttribute("usuario");
