@@ -20,8 +20,10 @@
                         <p:inputText id="nombres" value="#{personaController.selected.nombres}" title="#{bundle.CreatePersonaTitle_nombres}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_nombres}"/>
                         <p:outputLabel value="#{bundle.CreatePersonaLabel_apellidos}" for="apellidos" />
                         <p:inputText id="apellidos" value="#{personaController.selected.apellidos}" title="#{bundle.CreatePersonaTitle_apellidos}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_apellidos}"/>
-                        <p:outputLabel value="#{bundle.CreatePersonaLabel_tipo}" for="tipo" />
-                        <p:inputText id="tipo" value="#{personaController.selected.tipo}" title="#{bundle.CreatePersonaTitle_tipo}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_tipo}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_contrasenia}" for="contrasenia" />
+                        <p:inputText id="contrasenia" value="#{personaController.selected.contrasenia}" title="#{bundle.CreatePersonaTitle_contrasenia}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_contrasenia}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_tipoUsuario}" for="tipoUsuario" />
+                        <p:inputText id="tipoUsuario" value="#{personaController.selected.tipoUsuario}" title="#{bundle.CreatePersonaTitle_tipoUsuario}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_tipoUsuario}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{personaController.create}" value="#{bundle.Save}" update="display,:PersonaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonaCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PersonaCreateDialog.hide()"/>

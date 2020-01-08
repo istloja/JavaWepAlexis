@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Persona.findByCedula", query = "SELECT p FROM Persona p WHERE p.cedula = :cedula")
     , @NamedQuery(name = "Persona.findByNombres", query = "SELECT p FROM Persona p WHERE p.nombres = :nombres")
     , @NamedQuery(name = "Persona.findByApellidos", query = "SELECT p FROM Persona p WHERE p.apellidos = :apellidos")
-    , @NamedQuery(name = "Persona.findByTipo", query = "SELECT p FROM Persona p WHERE p.tipo = :tipo")})
+    , @NamedQuery(name = "Persona.findByContrasenia", query = "SELECT p FROM Persona p WHERE p.contrasenia = :contrasenia")
+    , @NamedQuery(name = "Persona.findByTipoUsuario", query = "SELECT p FROM Persona p WHERE p.tipoUsuario = :tipoUsuario")})
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,8 +56,13 @@ public class Persona implements Serializable {
     private String apellidos;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "tipo")
-    private int tipo;
+    @Size(min = 1, max = 20)
+    @Column(name = "contrasenia")
+    private String contrasenia;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "tipoUsuario")
+    private int tipoUsuario;
 
     public Persona() {
     }
@@ -65,12 +71,13 @@ public class Persona implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Persona(Integer idUsuario, int cedula, String nombres, String apellidos, int tipo) {
+    public Persona(Integer idUsuario, int cedula, String nombres, String apellidos, String contrasenia, int tipoUsuario) {
         this.idUsuario = idUsuario;
         this.cedula = cedula;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.tipo = tipo;
+        this.contrasenia = contrasenia;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public Integer getIdUsuario() {
@@ -105,12 +112,20 @@ public class Persona implements Serializable {
         this.apellidos = apellidos;
     }
 
-    public int getTipo() {
-        return tipo;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public int getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(int tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     @Override

@@ -1,8 +1,7 @@
-package Modelos;
+package Utilidades;
 
-import Utilidades.Libros;
-import Modelos.util.JsfUtil;
-import Modelos.util.JsfUtil.PersistAction;
+import Utilidades.util.JsfUtil;
+import Utilidades.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,7 +22,7 @@ import javax.faces.convert.FacesConverter;
 public class LibrosController implements Serializable {
 
     @EJB
-    private Modelos.LibrosFacade ejbFacade;
+    private Utilidades.LibrosFacade ejbFacade;
     private List<Libros> items = null;
     private Libros selected;
 

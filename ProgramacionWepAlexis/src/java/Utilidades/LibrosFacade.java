@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelos;
+package Utilidades;
 
-import Utilidades.Prestamo;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author AlexisO
  */
 @Stateless
-public class PrestamoFacade extends AbstractFacade<Prestamo> {
+public class LibrosFacade extends AbstractFacade<Libros> {
 
     @PersistenceContext(unitName = "ProgramacionWepAlexisPU")
     private EntityManager em;
@@ -25,8 +24,8 @@ public class PrestamoFacade extends AbstractFacade<Prestamo> {
         return em;
     }
 
-    public PrestamoFacade() {
-        super(Prestamo.class);
+    public LibrosFacade() {
+        super(Libros.class);
     }
     
 }

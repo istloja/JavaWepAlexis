@@ -1,8 +1,7 @@
-package Modelos;
+package Utilidades;
 
-import Utilidades.Prestamo;
-import Modelos.util.JsfUtil;
-import Modelos.util.JsfUtil.PersistAction;
+import Utilidades.util.JsfUtil;
+import Utilidades.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,23 +17,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("prestamoController")
+@Named("personaController")
 @SessionScoped
-public class PrestamoController implements Serializable {
+public class PersonaController implements Serializable {
 
     @EJB
-    private Modelos.PrestamoFacade ejbFacade;
-    private List<Prestamo> items = null;
-    private Prestamo selected;
+    private Utilidades.PersonaFacade ejbFacade;
+    private List<Persona> items = null;
+    private Persona selected;
 
-    public PrestamoController() {
+    public PersonaController() {
     }
 
-    public Prestamo getSelected() {
+    public Persona getSelected() {
         return selected;
     }
 
-    public void setSelected(Prestamo selected) {
+    public void setSelected(Persona selected) {
         this.selected = selected;
     }
 
@@ -44,36 +43,36 @@ public class PrestamoController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private PrestamoFacade getFacade() {
+    private PersonaFacade getFacade() {
         return ejbFacade;
     }
 
-    public Prestamo prepareCreate() {
-        selected = new Prestamo();
+    public Persona prepareCreate() {
+        selected = new Persona();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PrestamoCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PersonaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PrestamoUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PersonaUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PrestamoDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PersonaDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Prestamo> getItems() {
+    public List<Persona> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -108,29 +107,29 @@ public class PrestamoController implements Serializable {
         }
     }
 
-    public Prestamo getPrestamo(java.lang.Integer id) {
+    public Persona getPersona(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<Prestamo> getItemsAvailableSelectMany() {
+    public List<Persona> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Prestamo> getItemsAvailableSelectOne() {
+    public List<Persona> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Prestamo.class)
-    public static class PrestamoControllerConverter implements Converter {
+    @FacesConverter(forClass = Persona.class)
+    public static class PersonaControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PrestamoController controller = (PrestamoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "prestamoController");
-            return controller.getPrestamo(getKey(value));
+            PersonaController controller = (PersonaController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "personaController");
+            return controller.getPersona(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -150,11 +149,11 @@ public class PrestamoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Prestamo) {
-                Prestamo o = (Prestamo) object;
-                return getStringKey(o.getIdPrestamo());
+            if (object instanceof Persona) {
+                Persona o = (Persona) object;
+                return getStringKey(o.getIdUsuario());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Prestamo.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Persona.class.getName()});
                 return null;
             }
         }

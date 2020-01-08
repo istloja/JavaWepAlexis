@@ -12,12 +12,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -41,6 +43,18 @@ public class PersonaFacadeREST extends AbstractFacade<Persona> {
     public void create(Persona entity) {
         super.create(entity);
     }
+    
+    
+    //metodo post para traer objetos
+    @POST
+    @Path("obtenerPersona")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    
+    public Persona obtenerIdPersona (@FormParam("idUsuario")Integer idU){
+    
+        return super.find(idU);
+    }
+    
 
     @PUT
     @Path("{id}")
@@ -61,14 +75,21 @@ public class PersonaFacadeREST extends AbstractFacade<Persona> {
     public Persona find(@PathParam("id") Integer id) {
         return super.find(id);
     }
-
+    
+    
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public List<Persona> findAll() {
+        System.out.println("enviar");
         return super.findAll();
     }
-
+    @POST
+    @Path("post")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public List<Persona> findAllPost() {
+        return super.findAll();
+    }
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
