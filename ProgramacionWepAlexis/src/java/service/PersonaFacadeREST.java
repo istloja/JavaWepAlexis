@@ -43,17 +43,57 @@ public class PersonaFacadeREST extends AbstractFacade<Persona> {
     public void create(Persona entity) {
         super.create(entity);
     }
-    
-    
+
     //metodo post para traer objetos
     @POST
     @Path("obtenerPersona")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
-    
-    public Persona obtenerIdPersona (@FormParam("idUsuario")Integer idU){
-    
+
+    public Persona obtenerIdPersona(@FormParam("idUsuario") Integer idU) {
+
         return super.find(idU);
     }
+
+    //metodo para Crear Usuarios
+    @POST
+    @Path("crearUsuario")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public String MetodoCrearPersona(@FormParam("idUsuario") Integer idUsuario, @FormParam("cedula") Integer cedula, @FormParam("nombres") String nombres, @FormParam("apellidos") String apellidos, @FormParam("contrasenia") String contrasena, @FormParam("tipoUsuario") Integer tipoUsuario) {
+
+        Persona per = new Persona();
+        per.setIdUsuario(idUsuario);
+        per.setCedula(cedula);
+        per.setNombres(nombres);
+        per.setApellidos(apellidos);
+        per.setContrasenia(contrasena);
+        per.setTipoUsuario(tipoUsuario);
+
+        super.create(per);
+
+        return "Usuario Creado";
+    }
+    //metodo para Editar Usuarios
+    @POST
+    @Path("EditarUsuario")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public String MetodoEditarPersona(@FormParam("idUsuario") Integer idUsuario, @FormParam("cedula") Integer cedula, @FormParam("nombres") String nombres, @FormParam("apellidos") String apellidos, @FormParam("contrasenia") String contrasena, @FormParam("tipoUsuario") Integer tipoUsuario){
+       
+        Persona per ;
+        
+        per= super.find(idUsuario);
+        per.setIdUsuario(idUsuario);
+        per.setCedula(cedula);
+        per.setNombres(nombres);
+        per.setApellidos(apellidos);
+        per.setContrasenia(contrasena);
+        per.setTipoUsuario(tipoUsuario);
+        
+        
+        super.edit(per);
+    
+    return "Datos Editados";
+    }
+    
     
 
     @PUT
@@ -75,8 +115,7 @@ public class PersonaFacadeREST extends AbstractFacade<Persona> {
     public Persona find(@PathParam("id") Integer id) {
         return super.find(id);
     }
-    
-    
+
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
@@ -84,12 +123,14 @@ public class PersonaFacadeREST extends AbstractFacade<Persona> {
         System.out.println("enviar");
         return super.findAll();
     }
+
     @POST
     @Path("post")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public List<Persona> findAllPost() {
         return super.findAll();
     }
+
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -108,5 +149,5 @@ public class PersonaFacadeREST extends AbstractFacade<Persona> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
